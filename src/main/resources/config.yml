@@ -1,0 +1,6 @@
+bpkm:
+  mysql:
+    enable: true
+    url: localhost:3306/databaseName
+    username: username
+    password: password

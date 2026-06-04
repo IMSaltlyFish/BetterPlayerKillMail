@@ -1,6 +1,9 @@
 package top.saltlyfish.betterPlayerKillMail.util;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
@@ -20,6 +23,7 @@ public class EntityItemUtil {
      * 获取对应的 Material
      */
     private static Material getHeadMaterial(EntityType type) {
+        if (type == null)return Material.STRUCTURE_VOID;
         return switch (type) {
             case ZOMBIE, HUSK, DROWNED, ZOMBIE_VILLAGER -> Material.ZOMBIE_HEAD;
             case CREEPER -> Material.CREEPER_HEAD;

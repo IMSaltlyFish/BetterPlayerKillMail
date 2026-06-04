@@ -2,15 +2,20 @@ package top.saltlyfish.betterPlayerKillMail.gui;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import top.saltlyfish.betterPlayerKillMail.BetterPlayerKillMail;
 import top.saltlyfish.betterPlayerKillMail.mapper.DamageTypeToIconMapper;
 import top.saltlyfish.betterPlayerKillMail.record.PlayerDeathRecord;
+import top.saltlyfish.betterPlayerKillMail.util.DropLoreComponent;
+import top.saltlyfish.betterPlayerKillMail.util.EntityItemUtil;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +25,7 @@ public class KillMailGui implements InventoryHolder {
     private static final int SLOT_DEATH_CAUSE = 1;
     private static final int SLOT_VICTIM = 2;
     private static final int SLOT_LOCATION = 3;
+    private static final int LOOT_INFO = 4;
     private static final int SLOT_LOOT_START = 9;
 
     public KillMailGui(UUID kmUuid){
@@ -38,7 +44,7 @@ public class KillMailGui implements InventoryHolder {
         }
 
         // DeathReason
-        inventory.setItem(SLOT_DEATH_CAUSE, DamageTypeToIconMapper.getIcon(record.getDeathCause().getDamageType()));
+        inventory.setItem(SLOT_DEATH_CAUSE, DamageTypeToIconMapper.getIcon(record.getDamageType()));
 
         // Victim info
         inventory.setItem(SLOT_VICTIM,record.getVictimToItemStack());
@@ -46,6 +52,19 @@ public class KillMailGui implements InventoryHolder {
         // Death Location
         inventory.setItem(SLOT_LOCATION,DamageTypeToIconMapper.getLocationIcon(record.getLocation()));
 
+        // Loot info
+        ItemStack lootItem = new ItemStack(Material.NAME_TAG);
+
+        ItemMeta meta = lootItem.getItemMeta();
+        meta.displayName(Component.text("掉落物品："));
+        List<Component> lores = new ArrayList<>();
+        for (ItemStack item : loot){
+            lores.add(DropLoreComponent.of(item,item.getAmount()));
+        }
+        meta.lore(lores);
+        lootItem.setItemMeta(meta);
+
+        inventory.setItem(LOOT_INFO,lootItem);
         // put loot
         int index = SLOT_LOOT_START;
         int maxItems = inventory.getSize() - 9;

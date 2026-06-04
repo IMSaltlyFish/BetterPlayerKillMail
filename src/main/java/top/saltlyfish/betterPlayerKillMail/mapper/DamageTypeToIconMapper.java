@@ -103,6 +103,10 @@ public class DamageTypeToIconMapper {
                 material = Material.IRON_SWORD;
                 yield "§c攻击致死";
             }
+            case "player_attack"->{
+                material = Material.DIAMOND_SWORD;
+                yield "§c玩家击杀";
+            }
             case "player_explosion" -> {
                 material = Material.TNT;
                 yield "§c爆炸致死";

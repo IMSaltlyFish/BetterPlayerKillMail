@@ -8,6 +8,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.saltlyfish.betterPlayerKillMail.command.CommandManager;
+import top.saltlyfish.betterPlayerKillMail.database.mysql.MySQLManager;
+import top.saltlyfish.betterPlayerKillMail.database.mysql.MySQLService;
 import top.saltlyfish.betterPlayerKillMail.event.DeathListener;
 import top.saltlyfish.betterPlayerKillMail.record.PlayerDeathRecord;
 
@@ -24,6 +26,8 @@ public final class BetterPlayerKillMail extends JavaPlugin {
     private Cache<UUID, PlayerDeathRecord> recordCache;
     @Getter
     private Cache<UUID, Inventory> guiCache;
+    @Getter
+    private MySQLService sqlService;
 
     @Override
     public void onEnable() {
@@ -32,17 +36,20 @@ public final class BetterPlayerKillMail extends JavaPlugin {
         instance = this;
         // init cache
         recordCache = CacheBuilder.newBuilder()
-                .expireAfterWrite(10, TimeUnit.MINUTES)
+                .expireAfterWrite(60, TimeUnit.MINUTES)
                 .maximumSize(1000)                       // 最大1000个条目
                 .recordStats()                           // 记录命中率
-                .build();// 写入后10分钟过期
+                .build();                                // 写入后60分钟过期
 
         guiCache = CacheBuilder.newBuilder()
-                .expireAfterWrite(10, TimeUnit.MINUTES)  // 写入后10分钟过期
+                .expireAfterWrite(60, TimeUnit.MINUTES)  // 写入后60分钟过期
                 .maximumSize(1000)                       // 最大1000个条目
                 .recordStats()                           // 记录命中率
                 .build();
 
+        saveDefaultConfig();
+        // 初始化数据库
+        MySQLManager.init(getConfig());
 
         getLogger().info("cache initialized.");
         log.info("BPKM Start");
@@ -68,6 +75,7 @@ public final class BetterPlayerKillMail extends JavaPlugin {
     }
 
     public void putDeathRecord(UUID key,PlayerDeathRecord record){
+
         recordCache.put(key,record);
     }
 }
