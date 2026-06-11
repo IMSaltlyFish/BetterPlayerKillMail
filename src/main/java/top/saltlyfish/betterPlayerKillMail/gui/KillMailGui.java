@@ -13,7 +13,6 @@ import top.saltlyfish.betterPlayerKillMail.BetterPlayerKillMail;
 import top.saltlyfish.betterPlayerKillMail.mapper.DamageTypeToIconMapper;
 import top.saltlyfish.betterPlayerKillMail.record.PlayerDeathRecord;
 import top.saltlyfish.betterPlayerKillMail.util.DropLoreComponent;
-import top.saltlyfish.betterPlayerKillMail.util.EntityItemUtil;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

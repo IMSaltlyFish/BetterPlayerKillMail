@@ -1,6 +1,5 @@
 package top.saltlyfish.betterPlayerKillMail.command;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -13,7 +12,6 @@ import top.saltlyfish.betterPlayerKillMail.record.PlayerDeathRecord;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class CommandManager implements TabExecutor {
     @Override
