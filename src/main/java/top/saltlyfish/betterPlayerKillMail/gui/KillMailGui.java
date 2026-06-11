@@ -3,6 +3,7 @@ package top.saltlyfish.betterPlayerKillMail.gui;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -28,7 +29,7 @@ public class KillMailGui implements InventoryHolder {
     private static final int LOOT_INFO = 4;
     private static final int SLOT_LOOT_START = 9;
 
-    public KillMailGui(UUID kmUuid){
+    public KillMailGui(UUID kmUuid, Player player){
         PlayerDeathRecord record = BetterPlayerKillMail.getInstance().getDeathRecord(kmUuid);
         List<ItemStack> loot = record.getDrops();
         this.inventory = Bukkit.createInventory(
@@ -50,8 +51,9 @@ public class KillMailGui implements InventoryHolder {
         inventory.setItem(SLOT_VICTIM,record.getVictimToItemStack());
 
         // Death Location
-        inventory.setItem(SLOT_LOCATION,DamageTypeToIconMapper.getLocationIcon(record.getLocation()));
-
+        if (player.getUniqueId() == record.getVictim().uuid()){
+            inventory.setItem(SLOT_LOCATION,DamageTypeToIconMapper.getLocationIcon(record.getLocation()));
+        }
         // Loot info
         ItemStack lootItem = new ItemStack(Material.NAME_TAG);
 

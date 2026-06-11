@@ -223,6 +223,16 @@ public class PlayerDeathRecord{
         return new ItemStack(Material.AIR);
     }
 
-
-
+    @Override
+    public String toString() {
+        return "PlayerDeathRecord{" +
+                "uuid=" + uuid +
+                ", deathDate=" + deathDate +
+                ", killer=" + killer +
+                ", victim=" + victim +
+                ", location=" + location +
+                ", drops=" + drops +
+                ", damageType=" + damageType +
+                '}';
+    }
 }

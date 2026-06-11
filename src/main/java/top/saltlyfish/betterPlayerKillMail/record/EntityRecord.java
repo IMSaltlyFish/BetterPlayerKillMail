@@ -24,4 +24,12 @@ public record EntityRecord(UUID uuid, EntityType entityType) {
     public static EntityRecord deserialize(String json) throws JsonProcessingException {
         return MAPPER.readValue(json, EntityRecord.class);
     }
+
+    @Override
+    public String toString() {
+        return "EntityRecord{" +
+                "uuid=" + uuid +
+                ", entityType=" + entityType +
+                '}';
+    }
 }

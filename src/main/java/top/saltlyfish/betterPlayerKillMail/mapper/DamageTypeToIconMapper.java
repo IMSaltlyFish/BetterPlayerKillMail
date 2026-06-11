@@ -28,11 +28,11 @@ public class DamageTypeToIconMapper {
         Material material;
         String displayName = switch (key) {
             case "in_fire", "on_fire" -> {
-                material = Material.FIRE;
+                material = Material.FIRE_CHARGE;
                 yield "§c火焰伤害";
             }
             case "lava" ->{
-                material = Material.LAVA;
+                material = Material.LAVA_BUCKET;
                 yield "§c岩浆";
             }
             case "hot_floor" -> {
@@ -60,7 +60,7 @@ public class DamageTypeToIconMapper {
                 yield "§6摔落伤害";
             }
             case "out_of_world", "void" -> {
-                material = Material.VOID_AIR;
+                material = Material.BARRIER;
                 yield "§5虚空伤害";
             }
             case "magic" -> {
@@ -114,6 +114,10 @@ public class DamageTypeToIconMapper {
             case "arrow" -> {
                 material = Material.ARROW;
                 yield "§c箭矢伤害";
+            }
+            case "in_well"->{
+                material = Material.MAGMA_BLOCK;
+                yield "§8窒息而亡";
             }
             default -> {
                 material = Material.BARRIER;

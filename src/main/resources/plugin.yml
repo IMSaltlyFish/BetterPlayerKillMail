@@ -1,4 +1,4 @@
-name: BatterPlayerKillMail
+name: BetterPlayerKillMail
 version: '1.0'
 main: top.saltlyfish.betterPlayerKillMail.BetterPlayerKillMail
 api-version: '1.21'

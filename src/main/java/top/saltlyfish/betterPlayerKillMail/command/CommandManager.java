@@ -36,7 +36,7 @@ public class CommandManager implements TabExecutor {
                     return true;
                 }
 
-                KillMailGui gui = new KillMailGui(uuid);
+                KillMailGui gui = new KillMailGui(uuid,player);
                 player.openInventory(gui.getInventory());
                 return true;
             } catch (IllegalArgumentException e) {
